@@ -1,0 +1,16 @@
+Implemented rules:
+
+banbuz		- has N in base 10 or divides N
+	BANG	- banbuz, N = 5
+	BUZZ	- banbuz, N = 7
+FIBBI		- fibonacci
+SUMP		- a^2+b^3
+lprime		- least prime generator
+	CRASH	- lprime(N) == N
+	POP	- crash1 * crash2, crash1 != crash2
+	WHIZZ	- square-free
+	SQUAWK	- sum of 2 squares
+	ZIP	- a^b for b>1
+
+Build notes:
+Use Make to make.
