@@ -6,17 +6,17 @@
 const int LINE_SIZE = 4096;
 const int MAX_QUERY = 1000000;
 
-void help() {}
-
 int main(int argc, char *argv[])
 {
-	int N, offset, pos;
+	int N, offset, pos, i;
 	size_t len = LINE_SIZE;
 	bool running = true, first;
 	char query, *line;
 	
 	Buzzword *list[] = NEW_ALL;
 	line = new char[LINE_SIZE];
+	
+	setvbuf(stdout, NULL, _IOFBF, 0);
 	
 	while(running && getline(&line, &len, stdin) != -1)
 	{
@@ -28,7 +28,7 @@ int main(int argc, char *argv[])
 			running = false;
 			break;
 		case 'h':
-			for(int i=0;list[i];i++)
+			for(i=0;list[i];i++)
 				printf("%s %s\n", list[i]->name(), list[i]->desc());
 			break;
 		case 'c':
@@ -41,23 +41,23 @@ int main(int argc, char *argv[])
 					printf("Error ");
 					continue;
 				}
-				for(int i=0;list[i];i++)
+				if(first)
+					first = false;
+				else
+					putchar(' ');
+				for(i=0;list[i];i++)
 					if(list[i]->get(N))
 						printf("%s", list[i]->name());
-				if(first)
-				{
-					first = false;
-					putchar(' ');
-				}
 			}
 			putchar('\n');
 			break;
 		default:
 			puts("Error");
 		}
+		fflush(stdout);
 	}
 	
-	for(int i=0;list[i];i++)
+	for(i=0;list[i];i++)
 		delete list[i];
 	delete[] line;
 	

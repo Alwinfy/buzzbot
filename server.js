@@ -5,6 +5,7 @@ function readConf(path) {
 }
 
 function Server(guild) {
+	console.log(`Guild instantiated, id ${guild.id}`);
 	this.guild = guild;
 	this.path = `./data/${this.guild.id}.json`;
 	try {
