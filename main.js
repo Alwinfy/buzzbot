@@ -7,9 +7,10 @@ const {readFileSync} = require('fs');
 
 let token;
 try {
-	token = readFileSync('./token.key').toString().trim();
-} catch(e) {
-	token = process.env.BOT_TOKEN.trim();
+	token = readFileSync('./token.key').toString();
+}
+catch(e) {
+	token = process.env.BOT_TOKEN || '';
 }
 
 const util = require('./util');
@@ -46,25 +47,20 @@ client.on('message', function(msg) {
 	console.log(content);
 	let args = util.argparse(content.replace(/\s+$/g, ''));
 	let command = args.shift().toLowerCase();
-	if(command === "help") {
-		return;
-	}
 	
 	let cmd = commands[command];
 	if(cmd) {
 		(new Promise((resolve, reject) => {
-			let result;
 			try {
-				result = cmd.call(msg, serv, args);
+				resolve(cmd.call(msg, serv, args));
 			}
 			catch (err) {
 				reject(err);
 			}
-			resolve(result);
 		})).catch(console.error);
 	}
 	else
 		console.log(`Unknown command ${command}`);
 });
 
-client.login(token);
+client.login(token.trim());

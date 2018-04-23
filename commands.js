@@ -63,7 +63,7 @@ new Command(function(msg, serv) {
 			types.push(type);
 	msg.channel.send(`Your number is **${value}**.`)
 	query.query(value, str => {
-		let values = {}, falseword = '';
+		let values = {}, trueword = '';
 		for(let type of types)
 			if(values[type] = str.includes(type))
 				trueword += type;
