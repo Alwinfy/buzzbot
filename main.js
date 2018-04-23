@@ -5,7 +5,11 @@ const client = new Discord.Client();
 
 const {readFileSync} = require('fs');
 
-const token = readFileSync('./token.key').toString().trim();
+try {
+	const token = readFileSync('./token.key').toString().trim();
+} catch {
+	const token = process.env.BOT_TOKEN;
+}
 
 const util = require('./util');
 const commands = require('./commands') || {};
