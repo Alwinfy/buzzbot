@@ -134,5 +134,24 @@ new Command(function(msg, serv, args) {
 	embed.setImage(thonks[Math.floor(thonks.length * Math.random())]);
 	msg.channel.send(embed);
 }, 'thonk', 'replies with a random thonk emote');
+new Command(function(msg) {
+	msg.channel.fetchMessages({limit: 100})
+		.then(function(messages) {
+			return messages.filter(function(message) {
+				return message.author.id === message.client.user.id;
+			});
+		}).then(function(messages) {
+			let lastKey = messages.lastKey();
+			for(let message of messages) {
+				if(message[0] === lastKey) {
+					message[1].delete().then(function() {
+						console.log('Deleted the last few messages')
+					})
+				} else {
+					message[1].delete()
+				}
+			}
+		})	
+}, 'clean', 'removes the last few bot replies');
 
 module.exports = commands;
