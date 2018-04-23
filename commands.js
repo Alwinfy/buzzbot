@@ -63,18 +63,19 @@ new Command(function(msg, serv) {
 			types.push(type);
 	msg.channel.send(`Your number is **${value}**.`)
 	query.query(value, str => {
-		let values = {}, trueword = '';
+		let values = {}, falseword = '';
 		for(let type of types)
 			if(values[type] = str.includes(type))
 				trueword += type;
 		new Ticket('channel', msg.channel.id, function(msg) {
-			let lower = msg.content.toLowerCase();
+			let lower = msg.content.toLowerCase(),
+				wrong = `Incorrect: I was looking for \`${trueword || value}\`.`;
 			for(let type of types)
 				if(lower.includes(type.toLowerCase()) != values[type]) {
-					msg.channel.send(`Incorrect: I was looking for \`${trueword || value}\`.`);
+					msg.channel.send(wrong);
 					return;
 				}
-			msg.channel.send('Correct!');
+			msg.channel.send(trueword || RegExp(`\\b${value}\\b`).test(lower) ? 'Correct!' : wrong);
 		});
 	});
 }, 'ask', 'asks you to calculate a BuzzWord');
