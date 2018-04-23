@@ -7,7 +7,7 @@ const {readFileSync} = require('fs');
 
 try {
 	const token = readFileSync('./token.key').toString().trim();
-} catch {
+} catch(e) {
 	const token = process.env.BOT_TOKEN;
 }
 
