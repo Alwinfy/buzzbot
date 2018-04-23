@@ -9,9 +9,7 @@ let token;
 try {
 	token = readFileSync('./token.key').toString().trim();
 } catch(e) {
-	token = process.env.BOT_TOKEN;
-	for(let i in process.env)
-		console.log(`${i}: ${process.env[i]}`)
+	token = process.env.BOT_TOKEN.trim();
 }
 
 const util = require('./util');
