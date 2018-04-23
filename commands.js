@@ -128,7 +128,7 @@ new Command(function(msg, serv, args) {
 }, 'setmsg', 'sets the server\'s welcome message', false);
 new Command(function(msg, serv, args) {
 	let embed = new (discord.RichEmbed || discord.MessageEmbed);
-	embed.setTitle("\uD83E\uDD14");
+	embed.setTitle('\uD83E\uDD14');
 	embed.setImage(thonks[Math.floor(thonks.length * Math.random())]);
 	msg.channel.send(embed);
 }, 'thonk', 'replies with a random thonk emote');
