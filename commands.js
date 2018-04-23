@@ -30,14 +30,12 @@ new Command(function(msg, serv) {
 }, 'help', 'displays this help');
 new Command(function(msg, serv) {
 	let reply = '', types = [], bl = serv.get('blacklist');
-	console.log(bl);
 	for(let name in query.types) {
 		let line = `A number is **${name}** if it ${query.types[name]}.\n`;
 		if(bl[name])
 			line = `~~${line}~~`;
 		reply += line;
 	}
-	console.log(reply);
 	msg.channel.send(reply);
 }, 'list', 'lists all buzzwords');
 new Command(function(msg, serv, args) {
@@ -69,7 +67,6 @@ new Command(function(msg, serv) {
 		for(let type of types)
 			if(values[type] = str.includes(type))
 				trueword += type;
-		console.log(values);
 		new Ticket('channel', msg.channel.id, function(msg) {
 			let lower = msg.content.toLowerCase();
 			for(let type of types)
@@ -145,7 +142,7 @@ new Command(function(msg) {
 			for(let message of messages) {
 				if(message[0] === lastKey) {
 					message[1].delete().then(function() {
-						console.log('Deleted the last few messages')
+						console.log('Deleted the last few messages.')
 					})
 				} else {
 					message[1].delete()

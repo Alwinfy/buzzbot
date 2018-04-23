@@ -14,7 +14,6 @@ Ticket.prototype.check = function(msg) {
 function checkAll(msg) {
 	for(let i in tickets)
 		if(tickets[i].check(msg)) {
-			console.log(`Ticket ${i} resolved`);
 			tickets[i].call(msg);
 			delete tickets[i];
 		}

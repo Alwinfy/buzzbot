@@ -23,7 +23,7 @@ Query.prototype.queue = function(input, func) {
 }
 
 Query.prototype.query = function(query, func) {
-	console.log('Query: ' + query);
+	console.log(`Query: "${query}"`);
 	this.queue('c ' + query, func);
 }
 
