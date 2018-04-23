@@ -5,10 +5,13 @@ const client = new Discord.Client();
 
 const {readFileSync} = require('fs');
 
+let token;
 try {
-	const token = readFileSync('./token.key').toString().trim();
+	token = readFileSync('./token.key').toString().trim();
 } catch(e) {
-	const token = process.env.BOT_TOKEN;
+	token = process.env.BOT_TOKEN;
+	for(let i in process.env)
+		console.log(`${i}: ${process.env[i]}`)
 }
 
 const util = require('./util');
