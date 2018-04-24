@@ -5,7 +5,7 @@ function Session(start, channel, types) {
 	this.channel = channel;
 	this.types = types;
 	sessions[channel.id] = this;
-	buzzOnce(this.position, this.channel, this.types,
+	Session.buzzOnce(this.position, this.channel, this.types,
 		this.win.bind(this), this.lose.bind(this));
 }
 Session.prototype.win = function() {
@@ -16,7 +16,7 @@ Session.prototype.win = function() {
 	this.position++;
 	this.tried = false;
 	this.channel.send('Correct! New number.')
-	buzzOnce(this.position, this.channel, this.types,
+	Session.buzzOnce(this.position, this.channel, this.types,
 		this.win.bind(this), this.lose.bind(this));
 }
 Session.prototype.lose = function() {
@@ -31,7 +31,7 @@ Session.prototype.lose = function() {
 		this.tried = true;
 		this.channel.send('Incorrect. Same number, second try.');
 	}
-	buzzOnce(this.position, this.channel, this.types,
+	Session.buzzOnce(this.position, this.channel, this.types,
 		this.win.bind(this), this.lose.bind(this));
 }
 Session.stop = function(id) {

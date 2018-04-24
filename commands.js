@@ -1,4 +1,5 @@
 const discord = require('discord.js');
+const Session = require('./session');
 const {Ticket} = require('./ticket');
 const Query = require('./query');
 const query = new Query();
@@ -37,8 +38,8 @@ function buzzOnce(value, chan, types, win, lose) {
 				? win : lose)(trueword);
 		});
 	});
-
 }
+Session.buzzOnce = buzzOnce;
 
 new Command(function(msg, serv) {
 	let reply = '**BuzzBot** - a bot for playing BuzzCount\n\n**__Commands:__**',
@@ -95,6 +96,7 @@ new Command(function(msg, serv, args) {
 			(serv.get('buzzmax') - serv.get('buzzmin'))
 			+ serv.get('buzzmin')
 		: +args[0] || 1);
+	console.log(Session);
 	if(Session.get(msg.channel.id)) {
 		msg.channel.send('Buzz game has already started!');
 		return;
