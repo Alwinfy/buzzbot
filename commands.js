@@ -30,11 +30,11 @@ function buzzOnce(value, chan, types, win, lose) {
 			let lower = msg.content.toLowerCase();
 			for(let type of types)
 				if(lower.includes(type.toLowerCase()) != values[type]) {
-					lose();
+					lose(trueword);
 					return;
 				}
 			(trueword || RegExp(`\\b${value}\\b`).test(lower)
-				? win : lose)();
+				? win : lose)(trueword);
 		});
 	});
 
@@ -85,7 +85,8 @@ new Command(function(msg, serv) {
 	msg.channel.send(`Your number is **${value}**.`)
 	buzzOnce(value, msg.channel, types,
 		val => msg.channel.send('Correct!'),
-		val => {msg.channel.send(`Incorrect: I was looking for \`${val}\`.`);});
+		val => {
+		msg.channel.send(`Incorrect: I was looking for \`${val}\`.`);});
 }, 'ask', 'asks you to calculate a BuzzWord');
 
 new Command(function(msg, serv, args) {
