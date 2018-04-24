@@ -37,5 +37,8 @@ Session.prototype.lose = function() {
 Session.stop = function(id) {
 	sessions[id].position = undefined;
 }
+Session.get = function(id) {
+	return sessions[id];
+}
 
 module.exports = Session;

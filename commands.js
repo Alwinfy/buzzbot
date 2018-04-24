@@ -95,7 +95,7 @@ new Command(function(msg, serv, args) {
 			(serv.get('buzzmax') - serv.get('buzzmin'))
 			+ serv.get('buzzmin')
 		: +args[0] || 1);
-	if(sessions[msg.channel.id]) {
+	if(Session.get(msg.channel.id)) {
 		msg.channel.send('Buzz game has already started!');
 		return;
 	}
