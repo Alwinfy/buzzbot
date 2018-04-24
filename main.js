@@ -39,7 +39,8 @@ client.on('message', function(msg) {
 	if(!serv) return;
 	let prefix = serv.get('prefix');
 	if(!msg.content.startsWith(prefix)) {
-		checkAll(msg);
+		if(msg.content[0] !== '#')
+			checkAll(msg);
 		return;
 	}
 	

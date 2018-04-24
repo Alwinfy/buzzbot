@@ -20,6 +20,26 @@ function Command(callback, name, desc, visible=true) {
 }
 
 const thonks = readFileSync('./thonks.txt').toString().split('\n');
+function buzzOnce(value, chan, types, win, lose) {
+	chan.send(`Your number is **${value}**.`)
+	query.query(value, str => {
+		let values = {}, trueword = '';
+		for(let type of types)
+			if(values[type] = str.includes(type))
+				trueword += type;
+		return new Ticket('channel', chan.id, function(msg) {
+			let lower = msg.content.toLowerCase();
+			for(let type of types)
+				if(lower.includes(type.toLowerCase()) != values[type]) {
+					lose();
+					return;
+				}
+			(trueword || RegExp(`\\b${value}\\b`).test(lower)
+				? win : lose)();
+		});
+	});
+
+}
 
 new Command(function(msg, serv) {
 	let reply = '**BuzzBot** - a bot for playing BuzzCount\n\n**__Commands:__**';
@@ -62,23 +82,69 @@ new Command(function(msg, serv) {
 		if(!bl[type])
 			types.push(type);
 	msg.channel.send(`Your number is **${value}**.`)
-	query.query(value, str => {
-		let values = {}, trueword = '';
-		for(let type of types)
-			if(values[type] = str.includes(type))
-				trueword += type;
-		new Ticket('channel', msg.channel.id, function(msg) {
-			let lower = msg.content.toLowerCase(),
-				wrong = `Incorrect: I was looking for \`${trueword || value}\`.`;
-			for(let type of types)
-				if(lower.includes(type.toLowerCase()) != values[type]) {
-					msg.channel.send(wrong);
-					return;
-				}
-			msg.channel.send(trueword || RegExp(`\\b${value}\\b`).test(lower) ? 'Correct!' : wrong);
-		});
-	});
+	buzzOnce(value, msg.channel, types,
+		val => msg.channel.send('Correct!'),
+		val => msg.channel.send(`Incorrect: I was looking for \`${val}\`.`));
 }, 'ask', 'asks you to calculate a BuzzWord');
+
+let sessions = {};
+function Session(start, channel, types) {
+	this.position = start;
+	this.tried = false;
+	this.channel = channel;
+	this.types = types;
+	buzzOnce(this.position, this.channel, this.types,
+		this.win.bind(this), this.lose.bind(this));
+}
+Session.prototype.win = function() {
+	if(!this.position) {
+		delete sessions[this.channel.id];
+		return;
+	}
+	this.position++;
+	this.tried = false;
+	this.channel.send('Correct! New number.')
+	buzzOnce(this.position, this.channel, this.types,
+		this.win.bind(this), this.lose.bind(this));
+}
+Session.prototype.lose = function() {
+	if(!this.position) {
+		delete sessions[this.channel.id];
+		return;
+	}
+	if(this.tried) {
+		this.channel.send(`Wrong again: we are on **${this.position}**. Try again.`);
+	}
+	else {
+		this.tried = true;
+		this.channel.send('Incorrect. Same number, second try.');
+	}
+	buzzOnce(this.position, this.channel, this.types,
+		this.win.bind(this), this.lose.bind(this));
+}
+new Command(function(msg, serv, args) {
+	let startpt = Math.floor(args[0] && args[0].includes('rand')
+		? Math.random() *
+			(serv.get('buzzmax') - serv.get('buzzmin'))
+			+ serv.get('buzzmin')
+		: +args[0] || 1);
+	if(sessions[msg.channel.id]) {
+		msg.channel.send('Buzz game has already started!');
+		return;
+	}
+	let types = [];
+	let bl = serv.get('blacklist');
+	for(let type in query.types)
+		if(!bl[type])
+			types.push(type);
+	msg.channel.send(`Buzz game started! Beginning at **${startpt}**.`);
+	sessions[msg.channel.id] = new Session(startpt, msg.channel, types);
+}, 'start', 'start a game of BuzzCount');
+
+new Command(function(msg) {
+	sessions[msg.channel.id].position = undefined;
+	msg.channel.send('Stopped the current BuzzCount game.');
+}, 'stop', 'stop the current BuzzCount game');
 
 new Command(function(msg, serv, args) {
 	let bl = serv.get('blacklist');

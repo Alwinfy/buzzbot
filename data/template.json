@@ -3,5 +3,7 @@
 	"welcome": "welcome!",
 	"buzzmin": 1,
 	"buzzmax": 500,
+	"playing": false,
+	"position": 0,
 	"blacklist": {"Sump": true}
 }

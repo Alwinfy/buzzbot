@@ -4,7 +4,8 @@ function Ticket(field, value, callback) {
 	this.call = callback;
 	this.value = value;
 	this.field = field;
-	tickets[tid++] = this;
+	tickets[tid] = this;
+	return tid++;
 }
 
 Ticket.prototype.check = function(msg) {
@@ -17,6 +18,9 @@ function checkAll(msg) {
 			tickets[i].call(msg);
 			delete tickets[i];
 		}
+}
+function cancel(tid) {
+	delete tickets[tid];
 }
 
 module.exports.Ticket = Ticket;
