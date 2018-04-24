@@ -9,7 +9,6 @@ bool Whizz::get(int val)
 		val /= N;
 		if(N > 1 && val % N == 0)
 			return false;
-		val /= N;
 	}
 	return true;
 }
