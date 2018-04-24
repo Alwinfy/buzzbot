@@ -35,10 +35,13 @@ Session.prototype.lose = function() {
 		this.win.bind(this), this.lose.bind(this));
 }
 Session.stop = function(id) {
-	sessions[id].position = undefined;
+	if(Sessions.get(id)) {
+		sessions[id].position = undefined;
+		msg.channel.send('Stopped the current BuzzCount game.');
+	}
 }
 Session.get = function(id) {
-	return sessions[id];
+	return sessions[id] && sessions[id].position;
 }
 
 module.exports = Session;

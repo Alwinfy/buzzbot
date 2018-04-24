@@ -112,7 +112,6 @@ new Command(function(msg, serv, args) {
 
 new Command(function(msg) {
 	Session.stop(msg.channel.id);
-	msg.channel.send('Stopped the current BuzzCount game.');
 }, 'stop', 'stop the current BuzzCount game');
 
 new Command(function(msg, serv, args) {
