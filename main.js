@@ -39,7 +39,7 @@ client.on('message', function(msg) {
 	if(!serv) return;
 	let prefix = serv.get('prefix');
 	if(!msg.content.startsWith(prefix)) {
-		if(msg.content[0] !== '#')
+		if(msg.content.startsWith(serv.get('replypfx')))
 			checkAll(msg);
 		return;
 	}

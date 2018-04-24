@@ -1,5 +1,6 @@
 {
 	"prefix": "buzz ",
+	"replypfx": "$",
 	"welcome": "welcome!",
 	"buzzmin": 1,
 	"buzzmax": 500,

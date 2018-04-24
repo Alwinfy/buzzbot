@@ -21,7 +21,6 @@ function Command(callback, name, desc, visible=true) {
 
 const thonks = readFileSync('./thonks.txt').toString().split('\n');
 function buzzOnce(value, chan, types, win, lose) {
-	chan.send(`Your number is **${value}**.`)
 	query.query(value, str => {
 		let values = {}, trueword = '';
 		for(let type of types)
@@ -42,10 +41,12 @@ function buzzOnce(value, chan, types, win, lose) {
 }
 
 new Command(function(msg, serv) {
-	let reply = '**BuzzBot** - a bot for playing BuzzCount\n\n**__Commands:__**';
+	let reply = '**BuzzBot** - a bot for playing BuzzCount\n\n**__Commands:__**',
+		prefix = serv.get('prefix');
 	for(let cmd in commands)
 		if(cmd === commands[cmd].name)
-			reply += `\n\`${serv.get('prefix')}${cmd}\` - ${commands[cmd].desc}`;
+			reply += `\n\`${prefix}${cmd}\` - ${commands[cmd].desc}`;
+	reply += `\n\nTo reply to the bot's prompt, prefix your answer with \`${serv.get('replypfx')}\`.`
 	msg.channel.send(reply);
 }, 'help', 'displays this help');
 new Command(function(msg, serv) {
@@ -84,44 +85,9 @@ new Command(function(msg, serv) {
 	msg.channel.send(`Your number is **${value}**.`)
 	buzzOnce(value, msg.channel, types,
 		val => msg.channel.send('Correct!'),
-		val => msg.channel.send(`Incorrect: I was looking for \`${val}\`.`));
+		val => {msg.channel.send(`Incorrect: I was looking for \`${val}\`.`);});
 }, 'ask', 'asks you to calculate a BuzzWord');
 
-let sessions = {};
-function Session(start, channel, types) {
-	this.position = start;
-	this.tried = false;
-	this.channel = channel;
-	this.types = types;
-	buzzOnce(this.position, this.channel, this.types,
-		this.win.bind(this), this.lose.bind(this));
-}
-Session.prototype.win = function() {
-	if(!this.position) {
-		delete sessions[this.channel.id];
-		return;
-	}
-	this.position++;
-	this.tried = false;
-	this.channel.send('Correct! New number.')
-	buzzOnce(this.position, this.channel, this.types,
-		this.win.bind(this), this.lose.bind(this));
-}
-Session.prototype.lose = function() {
-	if(!this.position) {
-		delete sessions[this.channel.id];
-		return;
-	}
-	if(this.tried) {
-		this.channel.send(`Wrong again: we are on **${this.position}**. Try again.`);
-	}
-	else {
-		this.tried = true;
-		this.channel.send('Incorrect. Same number, second try.');
-	}
-	buzzOnce(this.position, this.channel, this.types,
-		this.win.bind(this), this.lose.bind(this));
-}
 new Command(function(msg, serv, args) {
 	let startpt = Math.floor(args[0] && args[0].includes('rand')
 		? Math.random() *
@@ -138,11 +104,11 @@ new Command(function(msg, serv, args) {
 		if(!bl[type])
 			types.push(type);
 	msg.channel.send(`Buzz game started! Beginning at **${startpt}**.`);
-	sessions[msg.channel.id] = new Session(startpt, msg.channel, types);
+	new Session(startpt, msg.channel, types);
 }, 'start', 'start a game of BuzzCount');
 
 new Command(function(msg) {
-	sessions[msg.channel.id].position = undefined;
+	Session.stop(msg.channel.id);
 	msg.channel.send('Stopped the current BuzzCount game.');
 }, 'stop', 'stop the current BuzzCount game');
 
@@ -193,6 +159,9 @@ new Command(function(msg, serv, args) {
 	serv.set('welcome', args.join(' '));
 }, 'setmsg', 'sets the server\'s welcome message', false);
 new Command(function(msg, serv, args) {
+	serv.set('replypfx', args[0] || '$');
+}, 'setprefix', 'sets the server\'s bot reply prefix', false);
+new Command(function(msg, serv, args) {
 	let embed = new (discord.RichEmbed || discord.MessageEmbed);
 	embed.setTitle('\uD83E\uDD14');
 	embed.setImage(thonks[Math.floor(thonks.length * Math.random())]);
@@ -219,3 +188,5 @@ new Command(function(msg) {
 }, 'clean', 'removes the last few bot replies');
 
 module.exports = commands;
+
+
