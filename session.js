@@ -37,7 +37,7 @@ Session.prototype.lose = function() {
 Session.stop = function(id) {
 	if(Session.get(id)) {
 		sessions[id].position = undefined;
-		msg.channel.send('Stopped the current BuzzCount game.');
+		sessions[id].channel.send('Stopped the current BuzzCount game.');
 	}
 }
 Session.get = function(id) {
