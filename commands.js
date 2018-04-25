@@ -31,7 +31,7 @@ function buzzOnce(value, chan, types, win, lose) {
 			let lower = msg.content.toLowerCase();
 			for(let type of types)
 				if(lower.includes(type.toLowerCase()) != values[type]) {
-					lose(trueword);
+					lose(trueword || value);
 					return;
 				}
 			(trueword || RegExp(`\\b${value}\\b`).test(lower)
