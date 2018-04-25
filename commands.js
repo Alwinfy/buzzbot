@@ -21,6 +21,7 @@ function Command(callback, name, desc, visible=true) {
 }
 
 const thonks = readFileSync('./thonks.txt').toString().split('\n');
+const info = readFileSync('./info.txt').toString();
 function buzzOnce(value, chan, types, win, lose) {
 	query.query(value, str => {
 		let values = {}, trueword = '';
@@ -35,7 +36,7 @@ function buzzOnce(value, chan, types, win, lose) {
 					return;
 				}
 			(trueword || RegExp(`\\b${value}\\b`).test(lower)
-				? win : lose)(trueword);
+				? win : lose)(trueword || value);
 		});
 	});
 }
@@ -50,6 +51,8 @@ new Command(function(msg, serv) {
 	reply += `\n\nTo reply to the bot's prompt, prefix your answer with \`${serv.get('replypfx')}\`.`
 	msg.channel.send(reply);
 }, 'help', 'displays this help');
+new Command(function(msg) {
+	msg.channel.send(msg);
 new Command(function(msg, serv) {
 	let reply = '', types = [], bl = serv.get('blacklist');
 	for(let name in query.types) {
@@ -128,7 +131,7 @@ new Command(function(msg, serv, args) {
 	});
 	msg.channel.send(`Enabled BuzzWords \`${succ.join('\` \`') || 'N/A'}\``);
 	serv.set('blacklist', bl);
-}, 'relist', 'enables a BuzzWord');
+}, 'enable', 'enables a BuzzWord');
 new Command(function(msg, serv, args) {
 	let bl = serv.get('blacklist');
 	let succ = [];
@@ -143,7 +146,7 @@ new Command(function(msg, serv, args) {
 	});
 	msg.channel.send(`Disabled BuzzWords \`${succ.join('\` \`') || 'N/A'}\``);
 	serv.set('blacklist', bl);
-}, 'unlist', 'disables a BuzzWord from gameplay (calculations will still display it)');
+}, 'disable', 'disables a BuzzWord from gameplay (calculations will still display it)');
 new Command(function(msg, serv, args) {
 	if(!args[0]) {
 		msg.channel.send(`Currently, the maximum is **${serv.get('buzzmax')}.`)
