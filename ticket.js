@@ -17,6 +17,7 @@ function checkAll(msg) {
 		if(tickets[i].check(msg)) {
 			tickets[i].call(msg);
 			delete tickets[i];
+			break;
 		}
 }
 function cancel(tid) {
