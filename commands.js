@@ -130,7 +130,7 @@ new Command(function(msg, serv, args) {
 			delete bl[cased];
 		}
 	});
-	msg.channel.send(`Enabled BuzzWords \`${succ.join('\` \`') || 'N/A'}\``);
+	msg.channel.send(`Enabled BuzzWord(s) \`${succ.join('\` \`') || 'N/A'}\`.`);
 	serv.set('blacklist', bl);
 }, 'enable', 'enables a BuzzWord');
 new Command(function(msg, serv, args) {
@@ -145,7 +145,7 @@ new Command(function(msg, serv, args) {
 			bl[cased] = true;
 		}
 	});
-	msg.channel.send(`Disabled BuzzWords \`${succ.join('\` \`') || 'N/A'}\``);
+	msg.channel.send(`Disabled BuzzWord(s) \`${succ.join('\` \`') || 'N/A'}\`.`);
 	serv.set('blacklist', bl);
 }, 'disable', 'disables a BuzzWord from gameplay (calculations will still display it)');
 new Command(function(msg, serv, args) {
