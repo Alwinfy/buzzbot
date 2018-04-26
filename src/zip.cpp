@@ -3,7 +3,7 @@
 bool Zip::get(int val)
 {
 	if(val < 3)
-		return false;
+		return val == 1;
 	int perst = 0, cur = 0;
 	int cval, oval = 1;
 	while(val > 1)
