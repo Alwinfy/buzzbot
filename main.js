@@ -34,18 +34,14 @@ client.on('guildMemberAdd', function(newbie) {
 			.send(`${newbie} ${serv.get('welcome')}`);
 });
 client.on('message', function(msg) {
-	if(msg.channel.type === 'dm')
-		let prefix = '';
-	else {
-		if(msg.author.id === client.user.id) return;
-		let serv = servers[msg.guild.id];
-		if(!serv) return;
-		let prefix = serv.get('prefix');
-		if(!msg.content.startsWith(prefix)) {
-			if(msg.content.startsWith(serv.get('replypfx')))
-				checkAll(msg);
-			return;
-		}
+	if(msg.author.id === client.user.id) return;
+	let serv = servers[msg.guild.id];
+	if(!serv) return;
+	let prefix = serv.get('prefix');
+	if(!msg.content.startsWith(prefix)) {
+		if(msg.content.startsWith(serv.get('replypfx')))
+			checkAll(msg);
+		return;
 	}
 	
 	let content = msg.content.substr(prefix.length, msg.content.length);
