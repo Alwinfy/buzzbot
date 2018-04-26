@@ -52,7 +52,8 @@ new Command(function(msg, serv) {
 	msg.channel.send(reply);
 }, 'help', 'displays this help');
 new Command(function(msg) {
-	msg.channel.send(msg);
+	msg.channel.send(info);
+}, 'info', 'displays general info about BuzzCount');
 new Command(function(msg, serv) {
 	let reply = '', types = [], bl = serv.get('blacklist');
 	for(let name in query.types) {
