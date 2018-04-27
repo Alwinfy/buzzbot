@@ -4,6 +4,6 @@ A Moderator (in this case, BuzzBot) selects a starting number N, and players arr
 
 Of course, so far this is far too easy on the players. That's where **BuzzWords** come in. The BuzzWords are a list of terms, each associated with a characteristic possessed by some (but not all) integers. For example, the word "buzz" applies to numbers that are divisible by seven or contain seven as a digit. The Moderator enables (or in BuzzBot's case, you enable) various BuzzWords throughout the game, and, if any of the BuzzWords apply to a certain number, the student must say the appropriate words rather than the number itself. So, if the number is 70 and the only active word is "buzz," a student must say "buzz" and would be eliminated for saying "70."
 
-Eventually, over a half-dozen BuzzWords are activated, and most students are quickly eliminated after this point. The highest number ever reached in a live game is 299.
+Eventually, over a half-dozen BuzzWords are activated, and most competitors are quickly eliminated after this point (notably, Sump fells competitors like a knife through hot butter). The highest number ever reached in a live game is 299.
 
-This bot simulates games and can be used to practice individual numbers. Use `buzz help` for a list of commands. To enter answers, precede your list of BuzzWords with a $.
+This bot simulates games, sans elimination (use your self-control) and can be used to practice individual numbers. Use `PREFIXhelp` for a list of commands. To enter answers, precede your list of BuzzWords with a `REPLYPFX`.
