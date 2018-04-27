@@ -52,8 +52,8 @@ new Command(function(msg, serv) {
 	msg.channel.send(reply);
 }, 'help', 'displays this help');
 new Command(function(msg, serv) {
-	msg.channel.send(info.replace('PREFIX', serv.get('prefix')
-		.replace('REPLYPFX', serv.get('replypfx'));
+	msg.channel.send(info.replace('PREFIX', serv.get('prefix'))
+		.replace('REPLYPFX', serv.get('replypfx')));
 }, 'info', 'displays general info about BuzzCount');
 new Command(function(msg, serv) {
 	let reply = '', types = [], bl = serv.get('blacklist');
