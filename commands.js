@@ -77,7 +77,7 @@ new Command(function(msg, serv, args) {
 				string += `**${nums[i]}** is \`${values[i] || nums[i]}\`.\n`;
 		msg.channel.send(string || '*No valid positive integers detected.*');
 	});
-}, 'calc', 'calculates a BuzzWord');
+}, 'calc', 'calculates the BuzzWords of a number');
 new Command(function(msg, serv) {
 	let value = Math.floor(Math.random() *
 		(serv.get('buzzmax') - serv.get('buzzmin'))
@@ -92,7 +92,7 @@ new Command(function(msg, serv) {
 		val => msg.channel.send('Correct!'),
 		val => {
 		msg.channel.send(`Incorrect: I was looking for \`${val}\`.`);});
-}, 'ask', 'asks you to calculate a BuzzWord');
+}, 'ask', 'asks you to calculate the BuzzWords of a number');
 
 new Command(function(msg, serv, args) {
 	let startpt = Math.floor(args[0] && args[0].includes('rand')
