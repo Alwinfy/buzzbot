@@ -38,7 +38,7 @@ client.on('message', function(msg) {
 	let serv = servers[msg.guild.id];
 	if(!serv) return;
 	let prefix = serv.get('prefix');
-	if(!msg.content.startsWith(prefix)) {
+	if(!msg.content.toLower().startsWith(prefix)) {
 		if(msg.content.startsWith(serv.get('replypfx')))
 			checkAll(msg);
 		return;
