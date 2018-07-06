@@ -16,6 +16,7 @@ catch(e) {
 const util = require('./util');
 const commands = require('./commands') || {};
 const Server = require('./server');
+const dummy = Server.dummy();
 const {checkAll} = require('./ticket');
 let servers = {};
 
@@ -35,7 +36,7 @@ client.on('guildMemberAdd', function(newbie) {
 });
 client.on('message', function(msg) {
 	if(msg.author.id === client.user.id) return;
-	let serv = servers[msg.guild.id];
+	let serv = (msg.channel.type == 'text' ? servers[msg.guild.id] : dummy);
 	if(!serv) return;
 	let prefix = serv.get('prefix');
 	if(!msg.content.toLowerCase().startsWith(prefix)) {

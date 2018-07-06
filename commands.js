@@ -48,7 +48,7 @@ new Command(function(msg, serv) {
 	for(let cmd in commands)
 		if(cmd === commands[cmd].name)
 			reply += `\n\`${prefix}${cmd}\` - ${commands[cmd].desc}`;
-	reply += `\n\nTo reply to the bot's prompt, prefix your answer with \`${serv.get('replypfx')}\`.`
+	reply += `\n\nTo reply to the bot's prompt, prefix your answer with \`${serv.get('replypfx')}\`. Please note that any persistent commands (setmax, etc.) do not yet work in DMs.`
 	msg.channel.send(reply);
 }, 'help', 'displays this help');
 new Command(function(msg, serv) {
@@ -174,25 +174,6 @@ new Command(function(msg, serv, args) {
 	embed.setImage(thonks[Math.floor(thonks.length * Math.random())]);
 	msg.channel.send(embed);
 }, 'thonk', 'replies with a random thonk emote');
-new Command(function(msg) {
-	msg.channel.fetchMessages({limit: 100})
-		.then(function(messages) {
-			return messages.filter(function(message) {
-				return message.author.id === message.client.user.id;
-			});
-		}).then(function(messages) {
-			let lastKey = messages.lastKey();
-			for(let message of messages) {
-				if(message[0] === lastKey) {
-					message[1].delete().then(function() {
-						console.log('Deleted the last few messages.')
-					})
-				} else {
-					message[1].delete()
-				}
-			}
-		})	
-}, 'clean', 'removes the last few bot replies');
 new Command(function(msg, serv, args) {
 	const MAXLEN = 2000;
 	let str = args.join('').replace(/\s+/g, '').toUpperCase();
@@ -234,6 +215,25 @@ new Command(function(msg, serv, args) {
 		strings.map(str => str.join(' ').replace(/\s+$/, '')).join('\n')
 		+ '\n```');
 }, 'cube', 'draws an ASCII cube using the specified text');
+new Command(function(msg) {
+	msg.channel.fetchMessages({limit: 50})
+		.then(function(messages) {
+			return messages.filter(function(message) {
+				return message.author.id === message.client.user.id;
+			});
+		}).then(function(messages) {
+			let lastKey = messages.lastKey();
+			for(let message of messages) {
+				if(message[0] === lastKey) {
+					message[1].delete().then(function() {
+						console.log('Deleted the last few messages.')
+					})
+				} else {
+					message[1].delete()
+				}
+			}
+		})	
+}, 'clean', 'removes the last few bot replies');
 
 module.exports = commands;
 

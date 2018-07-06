@@ -16,6 +16,11 @@ function Server(guild) {
 		this.write();
 	}
 }
+Server.dummy = function() {
+	let ret = new Server({id: 'template'});
+	ret.set = function() {};
+	return ret;
+};
 
 Server.prototype.write = function() {
 	writeFileSync(this.path, JSON.stringify(this.config));
