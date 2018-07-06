@@ -35,6 +35,6 @@ const char *Zip::name() const
 }
 const char *Zip::desc() const
 {
-	static const char *desc = "it equals the expression x^y, for integer x and y, and x, y > 1";
+	static const char *desc = "it equals the expression x^y, for integer x and y, x > 0, y > 1";
 	return desc;
 }

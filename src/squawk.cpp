@@ -30,6 +30,6 @@ const char *Squawk::name() const
 
 const char *Squawk::desc() const
 {
-	static const char *desc = "equals the sum of two (not necessarily distinct) primes";
+	static const char *desc = "equals the sum of two (not necessarily distinct) nonnegative perfect squares";
 	return desc;
 }
