@@ -4,6 +4,7 @@ const {Ticket} = require('./ticket');
 const Query = require('./query');
 const query = new Query();
 const {readFileSync} = require('fs');
+const splitter = new (require('grapheme-splitter'))();
 let commands = {};
 function Command(callback, name, desc, visible=true) {
 	this.call = callback;
@@ -22,6 +23,7 @@ function Command(callback, name, desc, visible=true) {
 
 const thonks = readFileSync('./thonks.txt').toString().split('\n');
 const info = readFileSync('./info.txt').toString();
+
 function buzzOnce(value, chan, types, win, lose) {
 	query.query(value, str => {
 		let values = {}, trueword = '';

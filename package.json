@@ -5,7 +5,8 @@
   "main": "index.js",
   "dependencies": {
     "bufferutil": "^3.0.4",
-    "discord.js": "^11.3.2"
+    "discord.js": "^11.3.2",
+    "grapheme-splitter": "^1.0.2"
   },
   "devDependencies": {},
   "scripts": {
