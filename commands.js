@@ -50,7 +50,7 @@ new Command(function(msg, serv) {
 	for(let cmd in commands)
 		if(cmd === commands[cmd].name)
 			reply += `\n\`${prefix}${cmd}\` - ${commands[cmd].desc}`;
-	reply += `\n\nTo reply to the bot's prompt, prefix your answer with \`${serv.get('replypfx')}\`. Please note that any persistent commands (setmax, etc.) do not yet work in DMs.`
+	reply += `\n\nTo reply to the bot's prompt, prefix your answer with \`${serv.get('replypfx')}\`. Please note that any persistent commands (setmax, etc.) will not persist over a day.`
 	msg.channel.send(reply);
 }, 'help', 'displays this help');
 new Command(function(msg, serv) {

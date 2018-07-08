@@ -18,13 +18,14 @@ const commands = require('./commands') || {};
 const Server = require('./server');
 const dummy = Server.dummy();
 const {checkAll} = require('./ticket');
-let servers = {};
+let servers = {}, dms = {};
+
 
 console.log(Server);
 client.on('ready', function() {
 	console.log(`Logged in as ${client.user.tag}!`);
 	for(let guild of client.guilds.array()) {
-		if(guild.available)
+	if(guild.available)
 			servers[guild.id] = new Server(guild);
 	}
 });
@@ -36,7 +37,8 @@ client.on('guildMemberAdd', function(newbie) {
 });
 client.on('message', function(msg) {
 	if(msg.author.id === client.user.id) return;
-	let serv = (msg.channel.type == 'text' ? servers[msg.guild.id] : dummy);
+	let serv = (msg.channel.type == 'text' ? servers[msg.guild.id] :
+		dms[msg.channel.id] = dms[msg.channel.id] || new Server(msg.channel));
 	if(!serv) return;
 	let prefix = serv.get('prefix');
 	if(!msg.content.toLowerCase().startsWith(prefix)) {
