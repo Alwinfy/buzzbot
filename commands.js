@@ -70,6 +70,13 @@ new Command(function(msg, serv) {
 new Command(function(msg, serv, args) {
 	msg.channel.send('pong');
 }, 'ping', 'tests if the bot is online');
+new Command(function(msg, serv, args) {
+	msg.channel.send('no u');
+}, 'off', '>:(', false);
+new Command(function(msg, serv, args) {
+	if(args[0].join(' ') === 'an alien')
+		msg.channel.send('*WHERE?*');
+}, 'look', 'looks at argument, under certain conditions', false);
 
 new Command(function(msg, serv, args) {
 	let nums = args.filter(val => !isNaN(+val));
