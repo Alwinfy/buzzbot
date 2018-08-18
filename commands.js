@@ -74,7 +74,7 @@ new Command(function(msg, serv, args) {
 	msg.channel.send('no u');
 }, 'off', '>:(', false);
 new Command(function(msg, serv, args) {
-	if(args[0].join(' ') === 'an alien')
+	if(args.join(' ').toLowerCase() === 'an alien')
 		msg.channel.send('*WHERE?*');
 }, 'look', 'looks at argument, under certain conditions', false);
 
