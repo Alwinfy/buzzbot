@@ -107,7 +107,7 @@ new Command(function(msg, serv) {
 new Command(function(msg, serv, args) {
 	let max = serv.get('buzzmax'), min = serv.get('buzzmin');
 	let startpt = Math.floor(args[0] && args[0].includes('rand')
-		? Math.random() * (max - min) + min)
+		? Math.random() * (max - min) + min
 		: Math.min(Math.max(+args[0] || 1, min), max));
 	console.log(Session);
 	if(Session.get(msg.channel.id)) {
