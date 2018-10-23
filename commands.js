@@ -105,11 +105,10 @@ new Command(function(msg, serv) {
 }, 'ask', 'asks you to calculate the BuzzWords of a number');
 
 new Command(function(msg, serv, args) {
+	let max = serv.get('buzzmax'), min = serv.get('buzzmin');
 	let startpt = Math.floor(args[0] && args[0].includes('rand')
-		? Math.random() *
-			(serv.get('buzzmax') - serv.get('buzzmin'))
-			+ serv.get('buzzmin')
-		: +args[0] || 1);
+		? Math.random() * (max - min) + min)
+		: Math.min(Math.max(+args[0] || 1, min), max));
 	console.log(Session);
 	if(Session.get(msg.channel.id)) {
 		msg.channel.send('Buzz game has already started!');
