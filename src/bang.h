@@ -5,7 +5,7 @@
 
 class Bang: public BanBuz {
 public:
-	bool get(int);
+	Bang();
 	const char *name() const;
 	const char *desc() const;
 };

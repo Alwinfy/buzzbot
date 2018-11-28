@@ -1,6 +1,7 @@
 #include "banbuz.h"
 
-bool BanBuz::_get(int val, int digit)
+BanBuz::BanBuz(int d): digit(d) {}
+bool BanBuz::get(int val)
 {
 	if(val < 0)
 		val = -val;

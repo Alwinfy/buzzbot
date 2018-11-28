@@ -1,9 +1,6 @@
 #include "buzz.h"
 
-bool Buzz::get(int n)
-{
-	return BanBuz::_get(n, 7);
-}
+Buzz::Buzz(): BanBuz(7) {}
 const char *Buzz::name() const
 {
 	static const char *name = "Buzz";

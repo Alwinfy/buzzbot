@@ -1,9 +1,7 @@
 #include "bang.h"
 
-bool Bang::get(int n)
-{
-	return BanBuz::_get(n, 5);
-}
+Bang::Bang(): BanBuz(5) {}
+
 const char *Bang::name() const
 {
 	static const char *name = "Bang";

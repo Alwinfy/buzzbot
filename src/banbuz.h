@@ -5,7 +5,10 @@
 
 class BanBuz: public Buzzword {
 public:
-	bool _get(int, int);
+	bool get(int);
+protected:
+	BanBuz(int);
+	int digit;
 };
 
 #endif
