@@ -59,7 +59,7 @@ template<class T> Array<T>::Array(const int init_size, const int buffer): bufsiz
 }
 template<class T> Array<T>::~Array() // deletes the array
 {
-	delete data;
+	delete[] data;
 }
 template<class T> void Array<T>::reallocate()
 {
