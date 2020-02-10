@@ -3,8 +3,10 @@
   "version": "1.0.0",
   "description": "A BuzzCount bot",
   "main": "index.js",
+  "engines": {
+    "node": "11.13.0"
+  },
   "dependencies": {
-    "bufferutil": "^3.0.4",
     "discord.js": "^11.3.2",
     "grapheme-splitter": "^1.0.2"
   },
