@@ -1,5 +1,5 @@
 BANBUZ_T = banbuz.o \
-		bang.o buzz.o
+		bang.o buzz.o whirr.o
 
 LPRIME_T = lprime.o \
 		crash.o pop.o whizz.o squawk.o zip.o prod.o cackle.o
