@@ -16,5 +16,5 @@
 #include "whirr.h"
 
 #ifndef NEW_ALL
-#define NEW_ALL {new Buzz, new Bang, new Crash, new Fibbi, new Pop, new Squawk, new Whizz, new Zip, new Zoob, new Sump, new Cackle, new Prod, new Zoob, new Whirr, NULL}
+#define NEW_ALL {new Buzz, new Bang, new Crash, new Fibbi, new Pop, new Squawk, new Whizz, new Zip, new Sump, new Cackle, new Prod, new Zoob, new Whirr, NULL}
 #endif
