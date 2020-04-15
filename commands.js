@@ -233,8 +233,8 @@ new Command(function(msg, serv, args) {
 	}
 
 	let message = `You roll \`${str}\` and get **${total}**.`;
-	if(count <= MAXINFO) {
-		if(kept.length || dropped.length) message += ' ';
+	if((kept.length || dropped.length) && count <= MAXINFO) {
+		message += ' ';
 		if(kept.length >= 2 || kept[0][1].length >= 2 || dropped.length) {
 			message += `${kept[0][0] == -1 ? '-' : ''}[ ${kept[0][1].map(x => x[1]).join(', ')} ]`;
 			for(let i=1; i<kept.length; i++)
