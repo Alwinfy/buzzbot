@@ -109,7 +109,6 @@ new Command(function(msg, serv, args) {
 	let startpt = Math.floor(args[0] && args[0].includes('rand')
 		? Math.random() * (max - min) + min
 		: Math.min(Math.max(+args[0] || 1, min), max));
-	console.log(Session);
 	if(Session.get(msg.channel.id)) {
 		msg.channel.send('Buzz game has already started!');
 		return;
@@ -182,6 +181,73 @@ new Command(function(msg, serv, args) {
 	embed.setImage(thonks[Math.floor(thonks.length * Math.random())]);
 	msg.channel.send(embed);
 }, 'thonk', 'replies with a random thonk emote');
+new Command(function(msg, serv, args) {
+	const MAXINFO = 20, MAXDICE = 10000, MAXROLL = 1e6;
+
+	const str = args.join('');
+	const split = str.split(/\+|(?=-)/);
+	console.log(split);
+	const kept = [], dropped = [];
+	let count = 0, total = 0, math = 0;
+
+	for(const roll of split) {
+		// parse
+		const match = roll.match(/^(-?)([0-9]*)(?:d([0-9]+))?(?:([ukld])([0-9]+))?$/i);
+		if(!match)
+			return msg.channel.send(`Got a bad diceroll: ${roll}!`);
+		// parse & check conditions
+		const mul = match[1] ? -1 : 1;
+		const rolls = match[2] ? +match[2] : 1;
+		if(!rolls) continue;
+		count += rolls;
+		if(count > MAXDICE)
+			return msg.channel.send(`That's too many dice!`);
+		if(!match[3]) {
+			total += mul * rolls;
+			math += mul * rolls;
+			continue;
+		}
+		const sides = +match[3];
+		if(sides < 2 || sides > MAXROLL)
+			return msg.channel.send(`This bot has no ${sides}-sided dice.`);
+		let keep = Math.min(rolls, Math.max(0, +match[5])) || rolls;
+		if(match[4] == 'd')
+			keep = rolls - keep;
+		// do the rolls
+		const therolls = new Array(rolls), thekeep = new Array(keep), thedrop = new Array(rolls - keep);
+		for(let i=0; i<rolls; i++)
+			therolls[i] = [i, 1 + Math.floor(Math.random() * sides)];
+		therolls.sort(match[4] === 'l' ? ((a, b) => a[1] - b[1]) : ((a, b) => b[1] - a[1]));
+		for(let i=0; i<keep; i++) {
+			thekeep[i] = therolls[i];
+			total += thekeep[i][1] * mul;
+		}
+		thekeep.sort((a, b) => a[0] - b[0]);
+		for(let i=keep; i<rolls; i++)
+			thedrop[i - keep] = therolls[i];
+		thedrop.sort((a, b) => a[0] - b[0]);
+		kept.push([mul, thekeep]);
+		if(thedrop.length)
+			dropped.push(thedrop);
+	}
+
+	let message = `You roll ${str} and get ${total}.`;
+	if(count <= MAXINFO) {
+		if(kept.length || dropped.length) message += ' ';
+		if(kept.length >= 2 || kept[0][1].length >= 2 || dropped.length) {
+			message += `${kept[0][0] == -1 ? '-' : ''}[ ${kept[0][1].map(x => x[1]).join(', ')} ]`;
+			for(let i=1; i<kept.length; i++)
+				message += ` ${kept[i][0] == -1 ? '-' : '+'} [ ${kept[i][1].map(x => x[1]).join(', ')} ]`;
+			if(math) message += ` ${math > 0 ? '+' : '-'} ${Math.abs(math)}`;
+		}
+		if(dropped.length) {
+			message += `, dropped [ ${dropped[0].map(x => x[1]).join(', ')} ]`;
+			for(let i=1; i<dropped.length; i++)
+				message += `& [ ${dropped[i].map(x => x[1]).join(', ')} ]`;
+		}
+	}
+	msg.channel.send(message);
+}, 'roll', 'rolls the specified DnD-style die');
 new Command(function(msg, serv, args) {
 	const MAXLEN = 2000;
 	let str = args.join('').replace(/\s+/g, '').toUpperCase();
