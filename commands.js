@@ -191,6 +191,7 @@ new Command(function(msg, serv, args) {
 	let count = 0, total = 0, math = 0;
 
 	for(const roll of split) {
+		if(!roll) continue;
 		// parse
 		const match = roll.match(/^(-?)([0-9]*)(?:d([0-9]+))?(?:([ukld])([0-9]+))?$/i);
 		if(!match)
