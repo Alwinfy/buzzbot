@@ -231,7 +231,7 @@ new Command(function(msg, serv, args) {
 			dropped.push(thedrop);
 	}
 
-	let message = `You roll ${str} and get ${total}.`;
+	let message = `You roll \`${str}\` and get **${total}**.`;
 	if(count <= MAXINFO) {
 		if(kept.length || dropped.length) message += ' ';
 		if(kept.length >= 2 || kept[0][1].length >= 2 || dropped.length) {
