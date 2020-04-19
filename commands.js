@@ -182,7 +182,7 @@ new Command(function(msg, serv, args) {
 	msg.channel.send(embed);
 }, 'thonk', 'replies with a random thonk emote');
 new Command(function(msg, serv, args) {
-	const MAXINFO = 20, MAXDICE = 10000, MAXROLL = 1e6;
+	const MAXINFO = 40, MAXDICE = 10000, MAXROLL = 1e6;
 
 	const str = args.join('');
 	const split = str.split(/\+|(?=-)/);
@@ -193,7 +193,7 @@ new Command(function(msg, serv, args) {
 	for(const roll of split) {
 		if(!roll) continue;
 		// parse
-		const match = roll.match(/^(-?)([0-9]*)(?:d([0-9]+))?(?:([ukld])([0-9]+))?$/i);
+		const match = roll.match(/^(-?)([0-9]*)(?:d([0-9]+))?([ukld])?([0-9]*)$/i);
 		if(!match)
 			return msg.channel.send(`Got a bad diceroll: ${roll}!`);
 		// parse & check conditions
@@ -211,8 +211,8 @@ new Command(function(msg, serv, args) {
 		const sides = +match[3];
 		if(sides < 2 || sides > MAXROLL)
 			return msg.channel.send(`This bot has no ${sides}-sided dice.`);
-		let keep = Math.min(rolls, Math.max(0, +match[5])) || rolls;
-		if(match[4] == 'd')
+		let keep = match[4] ? Math.min(rolls, Math.max(0, +match[5] || rolls - 1)) : rolls;
+		if(match[4] === 'd')
 			keep = rolls - keep;
 		// do the rolls
 		const therolls = new Array(rolls), thekeep = new Array(keep), thedrop = new Array(rolls - keep);
