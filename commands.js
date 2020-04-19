@@ -211,7 +211,7 @@ new Command(function(msg, serv, args) {
 		const sides = +match[3];
 		if(sides < 2 || sides > MAXROLL)
 			return msg.channel.send(`This bot has no ${sides}-sided dice.`);
-		let keep = match[4] ? Math.min(rolls, Math.max(0, +match[5] || rolls - 1)) : rolls;
+		let keep = match[4] ? Math.min(rolls, Math.max(0, match[5] ? +match[5] : rolls - 1)) : rolls;
 		if(match[4] === 'd')
 			keep = rolls - keep;
 		// do the rolls
