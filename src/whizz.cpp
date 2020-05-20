@@ -1,11 +1,11 @@
 #include "whizz.h"
 
-bool Whizz::get(int val)
+bool Whizz::get(unsigned val) const
 {
-	int N;
+	unsigned N;
 	while(val > 1)
 	{
-		N = _get(val);
+		N = get_lp(val);
 		val /= N;
 		if(N > 1 && val % N == 0)
 			return false;

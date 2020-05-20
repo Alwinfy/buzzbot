@@ -1,14 +1,14 @@
 #include "squawk.h"
 
-bool Squawk::get(int val)
+bool Squawk::get(unsigned val) const
 {
-	int oldp = 1, newp, count = 0;
+	unsigned oldp = 1, newp, count = 0;
 	if(val == 0) return true;
 	while(~val & 1)
 		val >>= 1;
 	while(val > 1)
 	{
-		newp = _get(val);
+		newp = get_lp(val);
 		if(oldp != newp)
 		{
 			if((count & 1) && (oldp & 2))

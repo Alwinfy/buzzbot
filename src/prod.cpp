@@ -1,10 +1,10 @@
 #include "prod.h"
 
-bool Prod::get(int val) // returns whether is prime
+bool Prod::get(unsigned val) const
 {
 	int n = 0;
 	if(val < 8) return false;
-	while((val /= _get(val)) != 1) n++;
+	while((val /= get_lp(val)) != 1) n++;
 	return n && (~n & 1);
 }
 

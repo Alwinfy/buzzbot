@@ -1,12 +1,13 @@
-#include "buzzword.h"
-
 #ifndef _ZOOB_H
 #define _ZOOB_H
 
+class Zoob;
+
+#include "buzzword.h"
+
 class Zoob: public Buzzword {
 public:
-	Zoob();
-	bool get(int);
+	bool get(unsigned) const override;
 	const char *name() const;
 	const char *desc() const;
 };

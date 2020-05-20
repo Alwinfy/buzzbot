@@ -1,13 +1,13 @@
-#include "banbuz.h"
-
 #ifndef _BANG_H
 #define _BANG_H
 
-class Bang: public BanBuz {
+class Bang;
+
+#include "banbuz.h"
+
+class Bang: public BanBuz<5> {
 public:
-	Bang();
-	const char *name() const;
-	const char *desc() const;
+	const char *name() const override;
 };
 
 #endif

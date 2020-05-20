@@ -1,14 +1,14 @@
 #include "cackle.h"
 
-bool Cackle::get(int val)
+bool Cackle::get(unsigned val) const
 {
 	if(val < 8)
 		return false;
-	if(_get(val) == val) return false;
-	int cval = 0, oval = 0, count = 0, primes = 0;
+	if(is_prime(val)) return false;
+	unsigned cval = 0, oval = 0, count = 0, primes = 0;
 	while(val > 1)
 	{
-		cval = _get(val);
+		cval = get_lp(val);
 		if(cval != oval)
 		{
 			primes += (count & 1);

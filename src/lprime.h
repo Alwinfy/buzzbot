@@ -1,20 +1,25 @@
-#include "array.h"
-#include "buzzword.h"
-
 #ifndef _LPRIME_H
 #define _LPRIME_H
 
+class LPrime;
+
+#include <vector>
+#include <map>
+
+#include "buzzword.h"
+
 class LPrime {
 public:
-	LPrime();
-	
-	const int _get(const int);
-	const int _isp(const int);
+	unsigned get_lp(unsigned n) const;
+	bool is_prime(unsigned n) const;
+	static std::vector<unsigned>		primes;
+
 private:
-	const bool isprime(const int);
-	void next();
-	
-	static Array<int> cache;
+	static void cache_to(unsigned);
+	static void put_nonprime(unsigned, unsigned);
+
+	static std::map<unsigned, unsigned>	expect;
+	static unsigned				greatest;
 };
 
 #endif

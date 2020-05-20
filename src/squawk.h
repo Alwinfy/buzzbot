@@ -1,12 +1,14 @@
-#include "lprime.h"
-#include "buzzword.h"
-
 #ifndef _SQUAWK_H
 #define _SQUAWK_H
 
-class Squawk: public Buzzword, public LPrime {
+class Squawk;
+
+#include "lprime.h"
+#include "buzzword.h"
+
+class Squawk: public Buzzword, private LPrime {
 public:
-	bool get(int);
+	bool get(unsigned) const override;
 	
 	const char *name() const;
 	const char *desc() const;

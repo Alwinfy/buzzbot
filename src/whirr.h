@@ -1,13 +1,13 @@
-#include "banbuz.h"
-
 #ifndef _WHIRR_H
 #define _WHIRR_H
 
-class Whirr: public BanBuz {
+class Whirr;
+
+#include "banbuz.h"
+
+class Whirr: public BanBuz<6> {
 public:
-	Whirr();
 	const char *name() const;
-	const char *desc() const;
 };
 
 #endif

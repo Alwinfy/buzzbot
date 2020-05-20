@@ -1,16 +1,14 @@
+#include <algorithm>
+
 #include "fibbi.h"
 
-Fibbi::Fibbi()
-{
-	fibbies.insert(0);
-	fibbies.insert(1);
-}
+std::vector<unsigned> Fibbi::fibbi_cache{0, 1};
 
-bool Fibbi::get(int val)
+bool Fibbi::get(unsigned val) const
 {
-	while(fibbies[-1] < val)
-		fibbies.insert(fibbies[-1] + fibbies[-2]);
-	return s.bsearch(&fibbies, val) != NULL;
+	while(fibbi_cache.back() < val)
+		fibbi_cache.push_back(fibbi_cache.back() + fibbi_cache[fibbi_cache.size() - 2]);
+	return std::binary_search(fibbi_cache.begin(), fibbi_cache.end(), val);
 }
 
 const char *Fibbi::name() const

@@ -1,12 +1,14 @@
-#include "lprime.h"
-#include "buzzword.h"
-
 #ifndef _CACKLE_H
 #define _CACKLE_H
 
-class Cackle: public Buzzword, public LPrime {
+class Cackle;
+
+#include "lprime.h"
+#include "buzzword.h"
+
+class Cackle: public Buzzword, private LPrime {
 public:
-	bool get(int);
+	bool get(unsigned) const override;
 	
 	const char *name() const;
 	const char *desc() const;

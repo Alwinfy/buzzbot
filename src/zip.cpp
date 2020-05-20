@@ -1,14 +1,14 @@
 #include "zip.h"
 
-bool Zip::get(int val)
+bool Zip::get(unsigned val) const
 {
 	if(val < 3)
 		return val == 1;
-	int perst = 0, cur = 0;
-	int cval, oval = 1;
+	unsigned perst = 0, cur = 0;
+	unsigned cval, oval = 1;
 	while(val > 1)
 	{
-		cval = _get(val);
+		cval = get_lp(val);
 		if(cval != oval)
 		{
 			perst = gcd(cur, perst);
@@ -21,7 +21,7 @@ bool Zip::get(int val)
 	return gcd(cur, perst) > 1;
 }
 
-int Zip::gcd(int a, int b)
+unsigned Zip::gcd(unsigned a, unsigned b) const
 {
 	if(b == 0)
 		return a;
@@ -35,6 +35,6 @@ const char *Zip::name() const
 }
 const char *Zip::desc() const
 {
-	static const char *desc = "equals the expression x^y, for integer x and y, x > 0, y > 1";
+	static const char *desc = "equals the expression x^y, for unsignedeger x and y, x > 0, y > 1";
 	return desc;
 }

@@ -2,9 +2,9 @@
 
 #include "sump.h"
 
-bool Sump::get(int val)
+bool Sump::get(unsigned val) const
 {
-	for(int i=0,c=0;c<val;i++,c=i*i*i)
+	for(unsigned i=0,c=0;c<val;i++,c=i*i*i)
 		if(issqr(val-c))
 			return true;
 	return false;
@@ -22,15 +22,15 @@ const char *Sump::desc() const
 	return desc;
 }
 
-bool Sump::issqr(int val)
+bool Sump::issqr(unsigned val) const
 {
-	for(int i=(sizeof(int)<<2);i>1;i>>=1)
+	for(int i=(sizeof(unsigned)<<2);i>1;i>>=1)
 		if(!(val & ((1 << i) - 1)))
 			val <<= i;
 	
 	if(val & 2)
 		return false;
 	
-	int tmp = floor(sqrt(val) + 0.5);
+	unsigned tmp = floor(sqrt(val) + 0.5);
 	return tmp * tmp == val;
 }

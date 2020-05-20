@@ -9,4 +9,6 @@ main: $(ALL_T)
 
 buzzquery: $(ALL_T)
 
+calctest: $(ALL_T)
+
 primes: lprime.o crash.o

@@ -4,16 +4,15 @@
 #include "all.h"
 
 const int LINE_SIZE = 4096;
-const int MAX_QUERY = 1000000;
+const int MAX_QUERY = 10000000;
 
 int main(int argc, char *argv[])
 {
-	int N, offset, pos, i;
+	int N, offset, pos;
 	size_t len = LINE_SIZE;
 	bool running = true, first;
 	char query, *line;
 	
-	Buzzword *list[] = NEW_ALL;
 	line = new char[LINE_SIZE];
 	
 	setvbuf(stdout, NULL, _IOFBF, 0);
@@ -21,15 +20,15 @@ int main(int argc, char *argv[])
 	while(running && getline(&line, &len, stdin) != -1)
 	{
 		pos = 0;
-		assert(sscanf(line, "%c %n", &query, &pos));
+		if(!sscanf(line, "%c %n", &query, &pos)) query = ' ';
 		switch(query)
 		{
 		case 'q':
 			running = false;
 			break;
 		case 'h':
-			for(i=0;list[i];i++)
-				printf("%s %s\n", list[i]->name(), list[i]->desc());
+			for(const auto &bw: ALL_WORDS)
+				printf("%s %s\n", bw->name(), bw->desc());
 			break;
 		case 'c':
 			first = true;
@@ -45,9 +44,9 @@ int main(int argc, char *argv[])
 					first = false;
 				else
 					putchar(' ');
-				for(i=0;list[i];i++)
-					if(list[i]->get(N))
-						printf("%s", list[i]->name());
+				for(const auto &bw: ALL_WORDS)
+					if(bw->get(N))
+						printf("%s", bw->name());
 			}
 			putchar('\n');
 			break;
@@ -56,10 +55,6 @@ int main(int argc, char *argv[])
 		}
 		fflush(stdout);
 	}
-	
-	for(i=0;list[i];i++)
-		delete list[i];
-	delete[] line;
 	
 	return 0;
 }

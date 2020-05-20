@@ -1,11 +1,11 @@
 #include "pop.h"
 
-bool Pop::get(int val)
+bool Pop::get(unsigned val) const
 {
 	if(val < 6)
 		return false;
-	int n = _get(val);
-	return val != n && val != n * n && _isp(val / n);
+	unsigned n = get_lp(val);
+	return val != n && val != n * n && is_prime(val / n);
 }
 
 const char *Pop::name() const

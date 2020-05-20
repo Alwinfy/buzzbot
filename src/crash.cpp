@@ -1,8 +1,8 @@
 #include "crash.h"
 
-bool Crash::get(int val) // returns whether is prime
+bool Crash::get(unsigned val) const
 {
-	return _isp(val);
+	return is_prime(val);
 }
 
 const char *Crash::name() const

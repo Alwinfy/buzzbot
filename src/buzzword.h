@@ -3,9 +3,9 @@
 
 class Buzzword {
 public:
-	virtual ~Buzzword() {}
+	virtual ~Buzzword() = default;
 	
-	virtual bool get(int) = 0;
+	virtual bool get(unsigned) const = 0;
 	virtual const char *name() const = 0;
 	virtual const char *desc() const = 0;
 };

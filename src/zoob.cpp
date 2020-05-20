@@ -1,8 +1,6 @@
 #include "zoob.h"
 
-Zoob::Zoob() {}
-
-bool Zoob::get(int val)
+bool Zoob::get(unsigned val) const
 {
 	return val % 11 == 7;
 }

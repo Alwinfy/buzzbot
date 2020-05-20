@@ -1,15 +1,11 @@
 #include "banbuz.h"
 
-BanBuz::BanBuz(int d): digit(d) {}
-bool BanBuz::get(int val)
-{
-	if(val < 0)
-		val = -val;
-	if(val % digit == 0)
-		return true;
-	do
-		if(val % 10 == digit)
+bool banbuz_get(unsigned value, unsigned digit) {
+	if(value % digit == 0) return true;
+	do {
+		if(value % BANBUZ_BASE == digit)
 			return true;
-	while(val /= 10);
+		value /= BANBUZ_BASE;
+	} while(value);
 	return false;
 }

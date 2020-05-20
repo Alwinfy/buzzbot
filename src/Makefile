@@ -3,7 +3,7 @@ ALL		:= $(basename $(SOURCES))
 EXECS		:= $(basename $(shell grep -zl 'int\s\+main' $(SOURCES)))
 NEWEST		:= $(shell echo $(EXECS) |cut -d ' ' -f1)
 
-CFLAGS		= -Wall -O2 -pedantic -Wno-unused-result
+CFLAGS		= -Wall -O -pipe -Wno-unused-result -Wno-long-long -pedantic -fdiagnostics-color=always
 LDFLAGS		= 
 DEBUG		?= 0
 
@@ -33,7 +33,7 @@ default: buzzquery
 %.o: %.cpp $(DEPDIR)/%.d
 	$(CXX) -c $(CXXFLAGS) $<
 
-%: %.o error.o
+%: %.o
 	$(CXX) -o $@ $^ $(LDFLAGS)
 
 spotless: clean clean-deps

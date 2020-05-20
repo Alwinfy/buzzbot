@@ -1,19 +1,20 @@
-#include "buzzword.h"
-#include "searcher.h"
-
 #ifndef _FIBBI_H
 #define _FIBBI_H
 
+class Fibbi;
+
+#include <vector>
+
+#include "buzzword.h"
+
 class Fibbi: public Buzzword {
 public:
-	Fibbi();
-	bool get(int);
+	bool get(unsigned) const override;
 	const char *name() const;
 	const char *desc() const;
 
 protected:
-	Array<int> fibbies;
-	Searcher<int> s;
+	static std::vector<unsigned> fibbi_cache;
 };
 
 #endif
