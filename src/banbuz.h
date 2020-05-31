@@ -21,7 +21,7 @@ public:
 
 	
 	const char *desc() const override {
-		static const std::string desc = ("divides " + std::to_string(Digit) + " or has the number " + std::to_string(Digit) + " in its base " + std::to_string(BANBUZ_BASE) + " representation").c_str();
+		static const std::string desc = ("is divisible by " + std::to_string(Digit) + " or has the number " + std::to_string(Digit) + " in its base " + std::to_string(BANBUZ_BASE) + " representation").c_str();
 		return desc.c_str();
 	}
 
