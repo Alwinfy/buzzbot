@@ -223,11 +223,12 @@ new Command(function(msg, serv, args) {
 			thekeep[i] = therolls[i];
 			total += thekeep[i][1] * mul;
 		}
-		thekeep.sort((a, b) => a[0] - b[0]);
 		for(let i=keep; i<rolls; i++)
 			thedrop[i - keep] = therolls[i];
-		if(!match[6])
+		if(!match[6]) {
+			thekeep.sort((a, b) => a[0] - b[0]);
 			thedrop.sort((a, b) => a[0] - b[0]);
+		}
 		kept.push([mul, thekeep]);
 		if(thedrop.length)
 			dropped.push(thedrop);
