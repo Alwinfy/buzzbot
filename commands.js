@@ -193,7 +193,7 @@ new Command(function(msg, serv, args) {
 	for(const roll of split) {
 		if(!roll) continue;
 		// parse
-		const match = roll.match(/^(-?)([0-9]*)(?:d([0-9]+))?([ukld])?([0-9]*)$/i);
+		const match = roll.match(/^(-?)([0-9]*)(?:d([0-9]+))?([ukld])?([0-9]*)(!?)$/i);
 		if(!match)
 			return msg.channel.send(`Got a bad diceroll: ${roll}!`);
 		// parse & check conditions
@@ -226,7 +226,8 @@ new Command(function(msg, serv, args) {
 		thekeep.sort((a, b) => a[0] - b[0]);
 		for(let i=keep; i<rolls; i++)
 			thedrop[i - keep] = therolls[i];
-		thedrop.sort((a, b) => a[0] - b[0]);
+		if(!match[6])
+			thedrop.sort((a, b) => a[0] - b[0]);
 		kept.push([mul, thekeep]);
 		if(thedrop.length)
 			dropped.push(thedrop);
