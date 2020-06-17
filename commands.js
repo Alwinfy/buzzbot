@@ -229,6 +229,10 @@ new Command(function(msg, serv, args) {
 			thekeep.sort((a, b) => a[0] - b[0]);
 			thedrop.sort((a, b) => a[0] - b[0]);
 		}
+		else {
+			thekeep.sort((a, b) => a[1] - b[1]);
+			thedrop.sort((a, b) => a[1] - b[1]);
+		}
 		kept.push([mul, thekeep]);
 		if(thedrop.length)
 			dropped.push(thedrop);
