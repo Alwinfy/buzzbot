@@ -226,8 +226,8 @@ new Command(function(msg, serv, args) {
 		for(let i=keep; i<rolls; i++)
 			thedrop[i - keep] = therolls[i];
 		if(!match[6]) {
-			thekeep.sort((a, b) => a[0] - b[0]);
-			thedrop.sort((a, b) => a[0] - b[0]);
+			thekeep.sort((a, b) => b[0] - a[0]);
+			thedrop.sort((a, b) => b[0] - a[0]);
 		}
 		kept.push([mul, thekeep]);
 		if(thedrop.length)
